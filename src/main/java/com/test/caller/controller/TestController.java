@@ -28,17 +28,6 @@ public class TestController {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
-
-    @GetMapping(path = "/get/site-data")
-    public ResponseEntity<String> getAllDataFromCollector(
-            PageRequest pageRequest) {
-        try {
-            return ResponseEntity.ok(callerService.getAllData(pageRequest));
-        } catch (Exception exception) {
-            System.out.println(exception.getMessage());
-            return ResponseEntity.badRequest().body(exception.getMessage());
-        }
-    }
 }
 
 

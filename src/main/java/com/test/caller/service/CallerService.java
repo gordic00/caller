@@ -2,7 +2,6 @@ package com.test.caller.service;
 
 import com.test.caller.helper.FileHelper;
 import com.test.caller.model.PageRequest;
-import com.test.caller.model.SiteData;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -27,54 +26,26 @@ public class CallerService {
      */
     public String getHtml(PageRequest pageRequest) {
         RestTemplate rest = new RestTemplate();
-        String requestUrl= getUrl(pageRequest);
+        String requestUrl = getUrl(pageRequest);
         System.out.println(requestUrl);
         ResponseEntity<byte[]> response = rest.getForEntity(requestUrl, byte[].class);
 
         if (response.getBody() != null) {
             try {
                 Document document = Jsoup.parse(new String(response.getBody(), StandardCharsets.UTF_8));
-                Element titleElement = document.selectFirst("meta[name='title']");
-                Element descriptionElement = document.selectFirst("meta[name='description']");
-                Elements imageElements = document.select("ul[class='p-slideset'] > li > a > img");
-                Element priceElement = document.selectFirst("span[class='price ']");
-                Element listPriceElement = document.selectFirst("div[class='price-block'] > div[class='price-detail'] > span[class='disc-price']");
-                Element sellerElement = document.selectFirst("div[class='title-stars-block'] > a[class='title']");
-                Elements categoryElements = document.select("ul[class='breadcrumb hidden-xs'] > li > a");
-
+//                Element titleElement = document.selectFirst("h1[itemprop='name']");
+//                Element descriptionElement = document.selectFirst("meta[name='description']");
+//                Elements imageElements = document.select("ul[class='p-slideset'] > li > a > img");
+//                Element priceElement = document.selectFirst("span[class='price ']");
+//                Element listPriceElement = document.selectFirst("div[class='price-block'] > div[class='price-detail'] > span[class='disc-price']");
+//                Element sellerElement = document.selectFirst("div[class='title-stars-block'] > a[class='title']");
+//                Elements categoryElements = document.select("ul[class='breadcrumb hidden-xs'] > li > a");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
             return new String(response.getBody(), StandardCharsets.UTF_8);
         }
         return null;
-    }
-
-    /**
-     * Get All Data by Url.
-     *
-     * @param pageRequest PageRequest
-     * @return String
-     */
-    public String getAllData(PageRequest pageRequest) {
-        RestTemplate rest = new RestTemplate();
-        /*
-        You can sand this two params as endpoints:
-            get/site-data
-            get/playwright/site-data
-         */
-        ResponseEntity<SiteData> response = rest.getForEntity(getUrl(pageRequest), SiteData.class);
-
-        if (response.getBody() != null) {
-            try {
-                SiteData siteData = response.getBody();
-                Document document = Jsoup.parse(siteData.getHtml());
-                System.out.println(siteData.getScreenshotUrl());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        return response.getBody().getHtml();
     }
 
     /**
