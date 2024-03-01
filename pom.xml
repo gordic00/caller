@@ -72,6 +72,17 @@
 			<artifactId>selenium-devtools</artifactId>
 			<version>4.0.0-rc-1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.13</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-webflux -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webflux</artifactId>
+			<version>6.1.1</version>
+		</dependency>
 
 	</dependencies>
 
